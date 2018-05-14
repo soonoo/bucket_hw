@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import HeaderBar from './componetns/HeaderBar';
-import LinkItem from './componetns/LinkItem';
-import FilterItem from './componetns/FilterItem';
+import HeaderBar from './components/HeaderBar';
+import LinkItem from './components/LinkItem';
+import FilterItem from './components/FilterItem';
+import Gallery from './components/Gallery';
 import './App.css';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <FilterItem title={'집들이'} />
           <FilterItem title={'기획전'} />
         </HeaderBar>
+        <Gallery />
       </div>
     );
   }
