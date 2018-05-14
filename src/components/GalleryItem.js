@@ -2,6 +2,7 @@
 
 import React from 'react';
 import GalleryItemTypeBadge from '../components/GalleryItemTypeBadge';
+import GalleryItemBookmarkBadge from '../components/GalleryItemBookmarkBadge';
 
 const GalleryItem = ({ url, alt, type }) => {
     const GalleryItemType = Object.freeze({
@@ -16,6 +17,7 @@ const GalleryItem = ({ url, alt, type }) => {
             <div className='gallery-item'>
                 <div>
                     <GalleryItemTypeBadge>{GalleryItemType[type]}</GalleryItemTypeBadge>
+                    <GalleryItemBookmarkBadge />
                     <img src={url} alt={alt} />
                 </div>
             </div>

@@ -36,3 +36,19 @@
     left: 15px;
     bottom: 15px;
 }
+
+.bookmark-badge {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 34px;
+    height: 34px;
+}
+
+.bookmark-on {
+    background-image: url('https://s3.ap-northeast-2.amazonaws.com/bucketplace-coding-test/res/action-scrap-circle-b.svg');
+}
+
+.bookmark-off {
+    background-image: url('https://s3.ap-northeast-2.amazonaws.com/bucketplace-coding-test/res/action-scrap-circle-w.svg');
+}
