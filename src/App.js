@@ -73,6 +73,13 @@ class App extends Component {
     window.removeEventListener('scroll', this.loadImages);
   }
 
+  componentDidUpdate() {
+    const root = document.querySelector('#root');
+    if(root.offsetHeight <= window.innerHeight) {
+      this.loadImages();
+    }
+  }
+
   async loadImages() {
     if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) return;
     if (this.state.isFetchingImage) return;

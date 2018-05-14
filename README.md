@@ -1,7 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # React
-
+`$ clone https://github.com/soonoo/bucket_hw`  
+`$ npm install`  
+`$ npm start`
 
 # SQL
 ### SQL-1
