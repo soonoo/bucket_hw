@@ -5,6 +5,7 @@ import FilterItem from './components/FilterItem';
 import Gallery from './components/Gallery';
 import GalleryItemType from './model/GalleryItemType';
 import Modal from './components/Modal';
+import BookmarkToast from './components/BookmarkToast';
 import './App.css';
 
 const CONTENTS_URL = "https://s3.ap-northeast-2.amazonaws.com/bucketplace-coding-test/feed/page_";
@@ -18,12 +19,14 @@ class App extends Component {
       galleryItems: [],
       galleryItemType: GalleryItemType.All,
       modalIndex: -1,
+      bookMarkIndex: {},
     };
 
     this.loadImages = this.loadImages.bind(this);
     this.onFilterClick = this.onFilterClick.bind(this);
     this.onImageClick = this.onImageClick.bind(this);
     this.onModalClick = this.onModalClick.bind(this);
+    this.toggleBookmark = this.toggleBookmark.bind(this);
   }
 
   render() {
@@ -44,12 +47,15 @@ class App extends Component {
         </HeaderBar>
         <Gallery
           onImageClick={this.onImageClick}
+          onToggleBookmark={this.toggleBookmark}
           galleryItems={this.state.galleryItems}
-          itemType={this.state.galleryItemType} />
+          itemType={this.state.galleryItemType}
+          bookMarkIndex={this.state.bookMarkIndex} />
         <Modal
           modalIndex={this.state.modalIndex}
           items={this.state.galleryItems}
           handleClick={this.onModalClick} />
+        <BookmarkToast />
       </div>
     );
   }
@@ -91,6 +97,7 @@ class App extends Component {
       galleryItems: [...prev.galleryItems, ...json],
       page: prev.page + 1,
       isFetchingImage: false,
+      bookMarkIndex: localStorage,
     }));
   }
 
@@ -110,6 +117,14 @@ class App extends Component {
     this.setState({
       modalIndex: -1,
     })
+  }
+
+  toggleBookmark(id) {
+    const value = (this.state.bookMarkIndex.getItem(id) === 'false') ? 'true' : 'false';
+    localStorage.setItem(id, value);
+    this.setState({
+        bookMarkIndex: localStorage,
+    });
   }
 }
 

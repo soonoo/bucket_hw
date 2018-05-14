@@ -1,0 +1,14 @@
+.bookmark-toast {
+    min-width: 500px;
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    margin-left: -250px;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    background-color: rgba(17, 16, 16, 0.75);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 8px;
+}
