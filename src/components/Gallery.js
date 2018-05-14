@@ -3,12 +3,14 @@
 import React from 'react';
 import '../css/gallery.css';
 import GalleryItem from './GalleryItem';
+import GalleryItemType from '../model/GalleryItemType';
 
-const Gallery = ({ galleryItems }) => {
+const Gallery = ({ galleryItems, itemType }) => {
     return (
         <div className='gallery-wrapper'>
             <ul>
                 {galleryItems.map((item, index) => {
+                    if(itemType !== GalleryItemType.All && itemType !== GalleryItemType[item.type]) return null;
                     return <GalleryItem
                         key={index}
                         url={item.image_url}
