@@ -4,6 +4,7 @@ import LinkItem from './components/LinkItem';
 import FilterItem from './components/FilterItem';
 import Gallery from './components/Gallery';
 import GalleryItemType from './model/GalleryItemType';
+import Modal from './components/Modal';
 import './App.css';
 
 const CONTENTS_URL = "https://s3.ap-northeast-2.amazonaws.com/bucketplace-coding-test/feed/page_";
@@ -16,10 +17,13 @@ class App extends Component {
       page: 1,
       galleryItems: [],
       galleryItemType: GalleryItemType.All,
+      modalIndex: -1,
     };
     
     this.loadImages = this.loadImages.bind(this);
     this.onFilterClick = this.onFilterClick.bind(this);
+    this.onImageClick = this.onImageClick.bind(this);
+    this.onModalClick = this.onModalClick.bind(this);
   }
 
   render() {
@@ -39,8 +43,13 @@ class App extends Component {
           })}
         </HeaderBar>
         <Gallery
+          onImageClick={this.onImageClick}
           galleryItems={this.state.galleryItems}
           itemType={this.state.galleryItemType} />
+        <Modal
+          modalIndex={this.state.modalIndex}
+          items={this.state.galleryItems}
+          handleClick={this.onModalClick} />
       </div>
     );
   }
@@ -56,7 +65,6 @@ class App extends Component {
   }
 
   async loadImages() {
-    document.documentElement.scrollTop
     const response = await fetch(`${CONTENTS_URL}${this.state.page}.json`);
     const json = await response.json();
 
@@ -67,10 +75,21 @@ class App extends Component {
   }
 
   onFilterClick(type) {
-    console.log(type);
     this.setState({
       galleryItemType: GalleryItemType[type],
     });
+  }
+
+  onImageClick(id) {
+    this.setState({
+      modalIndex: id,
+    });
+  }
+
+  onModalClick() {
+    this.setState({
+      modalIndex: -1,
+    })
   }
 }
 

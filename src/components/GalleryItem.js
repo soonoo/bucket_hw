@@ -5,14 +5,14 @@ import GalleryItemTypeBadge from '../components/GalleryItemTypeBadge';
 import GalleryItemBookmarkBadge from '../components/GalleryItemBookmarkBadge';
 import GalleryItemType from '../model/GalleryItemType';
 
-const GalleryItem = ({ url, alt, type }) => {
+const GalleryItem = ({ url, alt, type, id, handleClick }) => {
     return (
         <li>
             <div className='gallery-item'>
                 <div>
                     <GalleryItemTypeBadge>{GalleryItemType[type]}</GalleryItemTypeBadge>
                     <GalleryItemBookmarkBadge />
-                    <img src={url} alt={alt} />
+                    <img onClick={() => handleClick(id)} src={url} alt={alt} />
                 </div>
             </div>
         </li>

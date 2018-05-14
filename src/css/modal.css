@@ -1,0 +1,29 @@
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(100,100,100,0.8);
+    display: none;
+    padding: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-on {
+    display: flex;
+}
+
+.modal div {
+    max-width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 7px;
+}
+
+.modal img {
+    width: 100%;
+    height: auto;
+    background-color: rgba(0,0,255,0.5)
+}
