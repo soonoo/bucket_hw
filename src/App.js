@@ -82,6 +82,11 @@ class App extends Component {
       return;
     }
 
+    for(let item of json) {
+      let bookMark = localStorage.getItem(item.id);
+      if(bookMark === null || bookMark === undefined) localStorage.setItem(item.id, 'false');
+    }
+
     this.setState((prev) => ({
       galleryItems: [...prev.galleryItems, ...json],
       page: prev.page + 1,

@@ -11,7 +11,7 @@ const GalleryItem = ({ url, alt, type, id, handleClick }) => {
             <div className='gallery-item'>
                 <div>
                     <GalleryItemTypeBadge>{GalleryItemType[type]}</GalleryItemTypeBadge>
-                    <GalleryItemBookmarkBadge />
+                    <GalleryItemBookmarkBadge id={id} />
                     <img onClick={() => handleClick(id)} src={url} alt={alt} />
                 </div>
             </div>

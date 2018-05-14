@@ -9,7 +9,9 @@ const Modal = ({ modalIndex, items, handleClick }) => {
         src = '';
     } else {
         className = 'modal modal-on';
-        src = items[modalIndex].image_url;
+        src = items.find((item) => {
+            return modalIndex === item.id;
+        }).image_url;
     }
 
     const onImageClick = (e) => {
