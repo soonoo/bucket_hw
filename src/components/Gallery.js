@@ -13,7 +13,7 @@ const Gallery = ({ galleryItems, itemType, onImageClick }) => {
                     if(itemType !== GalleryItemType.All && itemType !== GalleryItemType[item.type]) return null;
                     return <GalleryItem
                         handleClick={onImageClick}
-                        id={index}
+                        id={item.id}
                         key={index}
                         url={item.image_url}
                         alt={item.title}

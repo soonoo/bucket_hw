@@ -19,7 +19,7 @@ class App extends Component {
       galleryItemType: GalleryItemType.All,
       modalIndex: -1,
     };
-    
+
     this.loadImages = this.loadImages.bind(this);
     this.onFilterClick = this.onFilterClick.bind(this);
     this.onImageClick = this.onImageClick.bind(this);
@@ -35,11 +35,11 @@ class App extends Component {
         </HeaderBar>
         <HeaderBar justify={'center'} >
           {Object.entries(GalleryItemType).map((item, index) => {
-              return <FilterItem
-                        key={index}
-                        type={item}
-                        handleClick={this.onFilterClick}
-                        itemType={this.state.galleryItemType} />;
+            return <FilterItem
+              key={index}
+              type={item}
+              handleClick={this.onFilterClick}
+              itemType={this.state.galleryItemType} />;
           })}
         </HeaderBar>
         <Gallery
@@ -65,12 +65,27 @@ class App extends Component {
   }
 
   async loadImages() {
+    if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) return;
+    if (this.state.isFetchingImage) return;
+
+    this.setState({
+      isFetchingImage: true,
+    });
+
     const response = await fetch(`${CONTENTS_URL}${this.state.page}.json`);
     const json = await response.json();
+
+    if (json.length === 0) {
+      this.setState({
+        isFetchingImage: true,
+      });
+      return;
+    }
 
     this.setState((prev) => ({
       galleryItems: [...prev.galleryItems, ...json],
       page: prev.page + 1,
+      isFetchingImage: false,
     }));
   }
 
