@@ -20,6 +20,7 @@ class App extends Component {
       galleryItemType: GalleryItemType.All,
       modalIndex: -1,
       bookMarkIndex: {},
+      bookmarkOnly: false,
     };
 
     this.loadImages = this.loadImages.bind(this);
@@ -27,14 +28,15 @@ class App extends Component {
     this.onImageClick = this.onImageClick.bind(this);
     this.onModalClick = this.onModalClick.bind(this);
     this.toggleBookmark = this.toggleBookmark.bind(this);
+    this.route = this.route.bind(this);
   }
 
   render() {
     return (
       <div className="App">
         <HeaderBar>
-          <LinkItem title={'전체보기'} path={'/'} isEnabled />
-          <LinkItem title={'북마크'} path={'/book-mark'} />
+          <LinkItem title={'전체보기'} path={'/'} router={this.route} enabled={!this.state.bookmarkOnly}/>
+          <LinkItem title={'북마크'} path={'/book-mark'} router={this.route} enabled={this.state.bookmarkOnly} />
         </HeaderBar>
         <HeaderBar justify={'center'} >
           {Object.entries(GalleryItemType).map((item, index) => {
@@ -125,6 +127,14 @@ class App extends Component {
     this.setState({
         bookMarkIndex: localStorage,
     });
+  }
+
+  route(path, enabled) {
+    if(enabled) return;
+    this.setState({
+      bookmarkOnly: path === '/book-mark',
+    }); 
+    window.history.pushState({}, '', path);
   }
 }
 
