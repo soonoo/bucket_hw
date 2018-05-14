@@ -52,7 +52,8 @@ class App extends Component {
           onToggleBookmark={this.toggleBookmark}
           galleryItems={this.state.galleryItems}
           itemType={this.state.galleryItemType}
-          bookMarkIndex={this.state.bookMarkIndex} />
+          bookMarkIndex={this.state.bookMarkIndex}
+          bookmarkOnly={this.state.bookmarkOnly} />
         <Modal
           modalIndex={this.state.modalIndex}
           items={this.state.galleryItems}
