@@ -6,7 +6,26 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # SQL
 ### SQL-1
 ```sql
-
+SELECT a.title, a.image_url
+FROM
+(
+  SELECT scrapbook.title, card.image_url, scrap.create_at, scrapbook.id
+  FROM scrapbook
+  JOIN scrap
+  ON scrapbook.id = scrap.scrapbook_id
+  JOIN card
+  ON scrap.card_id = card.id
+) a,
+(
+  SELECT MAX(scrap.create_at) date, scrapbook.id
+  FROM scrapbook
+  JOIN scrap
+  ON scrapbook.id = scrap.scrapbook_id
+  JOIN card
+  ON scrap.card_id = card.id
+  GROUP BY scrapbook.id
+) b
+WHERE a.create_at = b.date AND a.id = b.id;
 ```
 ### SQL-2
 사용자(user)
