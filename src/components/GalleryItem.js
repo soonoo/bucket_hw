@@ -1,15 +1,26 @@
 // image component in Gallery.js
 
 import React from 'react';
+import GalleryItemTypeBadge from '../components/GalleryItemTypeBadge';
 
-export default class GalleryItem extends React.Component {
-    render() {
-        return (
-            <li>
-                <div className='gallery-item'>
-                    <img src={this.props.url} alt={this.props.alt}/>
+const GalleryItem = ({ url, alt, type }) => {
+    const GalleryItemType = Object.freeze({
+        "Project": "집들이",
+        "Production": "제품",
+        "Card": "사진",
+        "Exhibition": "카드",
+    });
+
+    return (
+        <li>
+            <div className='gallery-item'>
+                <div>
+                    <GalleryItemTypeBadge>{GalleryItemType[type]}</GalleryItemTypeBadge>
+                    <img src={url} alt={alt} />
                 </div>
-            </li>
-        );
-    }
+            </div>
+        </li>
+    );
 }
+
+export default GalleryItem;

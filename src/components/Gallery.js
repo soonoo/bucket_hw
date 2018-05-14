@@ -10,9 +10,12 @@ export default class Gallery extends React.Component {
     constructor() {
         super();
         this.state = {
+            isFetching: false,
             page: 1,
             galleryItems: [],
         };
+
+        this.loadImages = this.loadImages.bind(this);
     }
 
     render() {
@@ -24,6 +27,7 @@ export default class Gallery extends React.Component {
                                 key={index}
                                 url={item.image_url} 
                                 alt={item.title}
+                                type={item.type}
                                 />
                     })}
                 </ul>
@@ -32,6 +36,16 @@ export default class Gallery extends React.Component {
     }
 
     async componentDidMount() {
+        this.loadImages();
+        window.addEventListener('scroll', this.loadImages);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.loadImages);
+    }
+
+    async loadImages() {
+        document.documentElement.scrollTop
         const response = await fetch(`${CONTENTS_URL}${this.state.page}.json`);
         const json = await response.json();
 
@@ -39,9 +53,5 @@ export default class Gallery extends React.Component {
             galleryItems: [...prev.galleryItems, ...json],
             page: prev.page + 1,
         }));
-    }
-
-    async loadImages() {
-
     }
 }
