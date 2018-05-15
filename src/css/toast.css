@@ -1,7 +1,6 @@
 .bookmark-toast {
     min-width: 500px;
     position: fixed;
-    top: 15px;
     left: 50%;
     margin-left: -250px;
     box-sizing: border-box;
@@ -11,4 +10,21 @@
     font-weight: 700;
     font-size: 15px;
     border-radius: 8px;
+    text-align: center;
+}
+
+.upper {
+    top: 15px;
+}
+
+.lower {
+    top: 75px;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
 }

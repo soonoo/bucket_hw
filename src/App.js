@@ -5,8 +5,7 @@ import FilterItem from './components/FilterItem';
 import Gallery from './components/Gallery';
 import GalleryItemType from './model/GalleryItemType';
 import Modal from './components/Modal';
-import BookmarkToast from './components/BookmarkToast';
-import './App.css';
+import BookmarkToastManager from './components/BookmarkToastManager';
 
 const CONTENTS_URL = "https://s3.ap-northeast-2.amazonaws.com/bucketplace-coding-test/feed/page_";
 
@@ -20,6 +19,8 @@ class App extends Component {
       galleryItemType: GalleryItemType.All,
       modalIndex: -1,
       bookMarkIndex: {},
+      toastQueue: [],
+      timerIdList: [],
       bookmarkOnly: false,
     };
 
@@ -29,13 +30,15 @@ class App extends Component {
     this.onModalClick = this.onModalClick.bind(this);
     this.toggleBookmark = this.toggleBookmark.bind(this);
     this.route = this.route.bind(this);
+    this.onMouseOverToast = this.onMouseOverToast.bind(this);
+    this.onMouseLeaveToast = this.onMouseLeaveToast.bind(this);
   }
 
   render() {
     return (
       <div className="App">
         <HeaderBar>
-          <LinkItem title={'전체보기'} path={'/'} router={this.route} enabled={!this.state.bookmarkOnly}/>
+          <LinkItem title={'전체보기'} path={'/'} router={this.route} enabled={!this.state.bookmarkOnly} />
           <LinkItem title={'북마크'} path={'/book-mark'} router={this.route} enabled={this.state.bookmarkOnly} />
         </HeaderBar>
         <HeaderBar justify={'center'} >
@@ -58,7 +61,10 @@ class App extends Component {
           modalIndex={this.state.modalIndex}
           items={this.state.galleryItems}
           handleClick={this.onModalClick} />
-        <BookmarkToast />
+        <BookmarkToastManager
+          toastQueue={this.state.toastQueue}
+          onMouseOver={this.onMouseOverToast}
+          onMouseLeave={this.onMouseLeaveToast} />
       </div>
     );
   }
@@ -75,7 +81,7 @@ class App extends Component {
 
   componentDidUpdate() {
     const root = document.querySelector('#root');
-    if(root.offsetHeight <= window.innerHeight) {
+    if (root.offsetHeight <= window.innerHeight) {
       this.loadImages();
     }
   }
@@ -98,9 +104,9 @@ class App extends Component {
       return;
     }
 
-    for(let item of json) {
+    for (let item of json) {
       let bookMark = localStorage.getItem(item.id);
-      if(bookMark === null || bookMark === undefined) localStorage.setItem(item.id, 'false');
+      if (bookMark === null || bookMark === undefined) localStorage.setItem(item.id, 'false');
     }
 
     this.setState((prev) => ({
@@ -132,17 +138,62 @@ class App extends Component {
   toggleBookmark(id) {
     const value = (this.state.bookMarkIndex.getItem(id) === 'false') ? 'true' : 'false';
     localStorage.setItem(id, value);
-    this.setState({
-        bookMarkIndex: localStorage,
-    });
+
+    if(this.state.toastQueue.length === 2) {
+      clearTimeout(this.state.timerIdList[0]);
+      this.setState((prev) => ({
+        timerIdList: [prev.timerIdList[1]],
+      }));
+    }
+
+    this.setState((prev) => ({
+      bookMarkIndex: localStorage,
+      toastQueue: prev.toastQueue.length === 2 ?
+        [prev.toastQueue[1], value === 'false'] :
+        [...prev.toastQueue, value === 'false'],
+    }));
+
+    const timerId = setTimeout(() => {
+      this.setState((prev) =>({
+        toastQueue: prev.toastQueue[1] !== undefined ? [prev.toastQueue[1]] : [],
+      }));
+    }, 5000);
+
+    this.setState((prev) => ({
+      timerIdList: [...prev, timerId],
+    }));
   }
 
   route(path, enabled) {
-    if(enabled) return;
+    if (enabled) return;
     this.setState({
       bookmarkOnly: path === '/book-mark',
-    }); 
+    });
     window.history.pushState({}, '', path);
+  }
+
+  onMouseOverToast() {
+    this.state.timerIdList.map((id) => {
+      clearTimeout(id);
+    });
+    this.setState({
+      timerIdList: [],
+    });
+    console.log(this.state.timerIdList);
+  }
+
+  onMouseLeaveToast() {
+    const timerIdList = [];
+    this.state.toastQueue.map(() => {
+      timerIdList.push(setTimeout(() => {
+        this.setState((prev) =>({
+          toastQueue: prev.toastQueue[1] !== undefined ? [prev.toastQueue[1]] : [],
+        }));
+      }, 5000));
+    });
+    this.setState({
+      timerIdList,
+    });
   }
 }
 
