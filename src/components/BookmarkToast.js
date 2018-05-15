@@ -1,3 +1,5 @@
+// 토스트 UI 컴포넌트
+
 import React from 'react';
 
 const BookmarkToast = ({ upper, deleted, hidden, message, index, onMouseOver, onMouseLeave }) => {

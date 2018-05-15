@@ -1,4 +1,4 @@
-// image component in Gallery.js
+// 메인 페이지 이미지 ui 컴포넌트
 
 import React from 'react';
 import GalleryItemTypeBadge from '../components/GalleryItemTypeBadge';

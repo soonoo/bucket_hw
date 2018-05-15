@@ -1,4 +1,4 @@
-// wrapper component containing LinkItem/FilterItem
+// 헤더 컴포넌트
 
 import React from 'react';
 

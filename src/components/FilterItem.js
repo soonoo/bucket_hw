@@ -1,4 +1,4 @@
-// button component that filters images
+// 사진 카테고리 버튼
 
 import React from 'react';
 

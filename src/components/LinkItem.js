@@ -1,4 +1,4 @@
-// wrapper component for react router Link component
+// 화면 좌측 상단 링크 컴포넌트
 
 import React from 'react';
 import '../css/header.css';

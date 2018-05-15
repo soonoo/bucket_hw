@@ -1,3 +1,5 @@
+// 토스트 wrapper 컴포넌트
+
 import React from 'react';
 import BookmarkToast from './BookmarkToast';
 import '../css/toast.css';

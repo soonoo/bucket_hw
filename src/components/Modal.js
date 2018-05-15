@@ -1,3 +1,5 @@
+// 이미지 모달 컴포넌트
+
 import React from 'react';
 import '../css/modal.css';
 
