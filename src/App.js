@@ -160,7 +160,7 @@ class App extends Component {
     }, 5000);
 
     this.setState((prev) => ({
-      timerIdList: [...prev, timerId],
+      timerIdList: [...prev.timerIdList, timerId],
     }));
   }
 
