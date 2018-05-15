@@ -5,6 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 `$ npm install`  
 `$ npm start`
 
+http://soonoo.me:3000
+
 # SQL
 ### SQL-1
 ```sql
