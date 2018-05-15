@@ -81,4 +81,23 @@ WHERE a.create_at = b.date AND a.id = b.id;
 ![다이어그램](/diagram.png)
 
 # 수학적 사고 
+### 1
+```javasccript
+function solution(arr1, arr2) {
+	// 각각 오름차순/내림차순으로 정렬후 계산
+	arr1.sort((a, b) => {
+    return a - b;
+	});
 
+	arr2.sort((a, b) => {
+    return b - a;
+	});
+
+  let sum = 0;
+	for(let i = 0; i < arr1.length; i++) {
+		sum += arr1[i] * arr2[i];
+	}
+
+	return sum;
+}
+```
