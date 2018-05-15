@@ -80,24 +80,14 @@ WHERE a.create_at = b.date AND a.id = b.id;
 
 ![다이어그램](/diagram.png)
 
-# 수학적 사고 
+# 수학적 사고
+node v9.4.0에서 테스트했습니다.  
 ### 1
-```javasccript
-function solution(arr1, arr2) {
-	// 각각 오름차순/내림차순으로 정렬후 계산
-	arr1.sort((a, b) => {
-    return a - b;
-	});
+`$ node math#1.js`  
+[코드](https://gist.github.com/soonoo/96b89e99d9327366e412363117cc91c8)
 
-	arr2.sort((a, b) => {
-    return b - a;
-	});
+### 2
+`$ node math#2.js`  
+[코드](https://gist.github.com/soonoo/294e49907729266f4926d97e8603a941)
+![결과](/math2_result.png)
 
-  let sum = 0;
-	for(let i = 0; i < arr1.length; i++) {
-		sum += arr1[i] * arr2[i];
-	}
-
-	return sum;
-}
-```
